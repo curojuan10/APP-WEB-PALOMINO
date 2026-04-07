@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "palomino-auth-collection",
+    "name": "Palomino API - Authentication",
+    "description": "Collection para testing de endpoints de autenticación en Palomino Backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User - Success",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Juan Pérez García\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"MiPassword123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "register"]
+        },
+        "description": "Registra un nuevo usuario exitosamente (201 Created)"
+      }
+    },
+    {
+      "name": "Register User - Duplicate Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Otro Usuario\",\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"OtroPassword123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "register"]
+        },
+        "description": "Intenta registrar email duplicado (400 Bad Request)"
+      }
+    },
+    {
+      "name": "Register User - Invalid Email",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"María García\",\n  \"email\": \"email-invalido\",\n  \"password\": \"Password123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "register"]
+        },
+        "description": "Email con formato inválido (400 Bad Request)"
+      }
+    },
+    {
+      "name": "Register User - Password Too Short",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Pedro Sánchez\",\n  \"email\": \"pedro.sanchez@example.com\",\n  \"password\": \"123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "register"]
+        },
+        "description": "Password menor a 6 caracteres (400 Bad Request)"
+      }
+    },
+    {
+      "name": "Login User - Success",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"MiPassword123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "login"]
+        },
+        "description": "Login exitoso (200 OK) retorna JWT"
+      }
+    },
+    {
+      "name": "Login User - Invalid Credentials",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"juan.perez@example.com\",\n  \"password\": \"PasswordIncorrecto123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "login"]
+        },
+        "description": "Password incorrecto (400 Bad Request)"
+      }
+    },
+    {
+      "name": "Login User - Non-existent User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"usuario.inexistente@example.com\",\n  \"password\": \"AnyPassword123!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["auth", "login"]
+        },
+        "description": "Usuario no existe (400 Bad Request)"
+      }
+    }
+  ]
+}
+
