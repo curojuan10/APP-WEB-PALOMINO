@@ -77,7 +77,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         
-                        // Rutas protegidas (requieren autenticación)
+                        // Rutas protegidas usuario (requieren autenticación)
                         .requestMatchers("/api/usuario/**").authenticated()
                         
                         // Rutas solo para ADMIN

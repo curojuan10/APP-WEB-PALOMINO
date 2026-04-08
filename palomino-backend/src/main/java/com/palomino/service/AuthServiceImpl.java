@@ -65,13 +65,15 @@ public class AuthServiceImpl implements AuthService {
             throw new IllegalArgumentException("El rol CLIENTE no existe en la base de datos");
         }
 
-        // 3. Crear la entidad Usuario con password encriptado
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombre(registerRequest.getNombre());
-        nuevoUsuario.setEmail(registerRequest.getEmail());
-        // IMPORTANTE: Encriptar password ANTES de guardar
-        nuevoUsuario.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        nuevoUsuario.setRol(rolCliente);
+        // 3. Crear la entidad Usuario con constructor controlado
+        // El password debe venir ENCRIPTADO con BCrypt
+        String passwordEncriptado = passwordEncoder.encode(registerRequest.getPassword());
+        Usuario nuevoUsuario = new Usuario(
+                registerRequest.getNombre(),
+                registerRequest.getEmail(),
+                passwordEncriptado,
+                rolCliente
+        );
 
         // 4. Guardar el usuario en la base de datos
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
